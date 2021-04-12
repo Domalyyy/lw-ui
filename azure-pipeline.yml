@@ -15,9 +15,9 @@ jobs:
       vmImage: ubuntu-latest
     steps:
       - task: NodeTool@0
-          inputs:
-            versionSpec: '10.x'
-          displayName: 'Install Node.js'
+        inputs:
+          versionSpec: '10.x'
+        displayName: 'Install Node.js'
 
       - task: Npm@1
         displayName: Install LinkedWay-UI
