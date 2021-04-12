@@ -54,19 +54,11 @@ jobs:
           containerRegistry: LinkedWay
 
       - task: Docker@2
-        displayName: Build and Push
-        inputs:
-          command: buildAndPush
-          repository: lw-ui
-          tags: |
-            0.0-$(Build.BuildNumber).0
-        condition: ne(variables['Build.SourceBranch'], variables['Main.Branch'])
-
-      - task: Docker@2
         displayName: Build and Push ($(Main.Branch))
         inputs:
           command: buildAndPush
           repository: lw-ui
           tags: |
+            0.0-$(Build.BuildNumber).0
             latest
         condition: eq(variables['Build.SourceBranch'], variables['Main.Branch'])
