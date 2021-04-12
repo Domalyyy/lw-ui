@@ -2,8 +2,7 @@
 #  - features/*
 #  - develop/*
 #
-#trigger:
-#  - main
+trigger: none
 
 variables:
   - name: 'Main.Branch'
