@@ -14,13 +14,13 @@ import {UserService} from '../user-service/user.service';
 export class AuthenticationService {
   private AUTHENTICATION_URL = environment.baseUrl + '/login';
 
-  private currentUserSubject: BehaviorSubject<User> | undefined;
-  public currentUser: Observable<User> | undefined;
+  private currentUserSubject: BehaviorSubject<User | undefined> | undefined;
+  public currentUser: Observable<User | undefined> | undefined;
 
   constructor(private http: HttpClient, private cookieService: CookieService, private userService: UserService) {
     const savedUser = this.cookieService.get('currentUser');
     if (savedUser) {
-      this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(this.cookieService.get('currentUser')));
+      this.currentUserSubject = new BehaviorSubject<User | undefined>(JSON.parse(this.cookieService.get('currentUser')));
       this.currentUser = this.currentUserSubject.asObservable();
     }
   }
@@ -42,7 +42,6 @@ export class AuthenticationService {
 
   logout(): any {
     this.cookieService.delete('currentUser');
-    // @ts-ignore
     this.currentUserSubject?.next(undefined);
   }
 
