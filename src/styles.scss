@@ -1,9 +1,74 @@
 html, body {
   height: 100%;
   width: 100%;
+  background-color: #e5e5e5;
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+.mat-card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  position: relative;
+  top: 0;
+  opacity: 1;
+  float: left;
+  padding: 60px 50px 40px 50px;
+  width: 100%;
+  background: #fff;
+  border-radius: 10px;
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  z-index: 5;
+  max-width: 330px;
+
+  &.back {
+    transform: scale(.95);
+    -webkit-transform: scale(.95);
+    -ms-transform: scale(.95);
+    top: -20px;
+    opacity: .8;
+    z-index: -1;
+  }
+
+  &:before {
+    content: "";
+    width: 100%;
+    height: 30px;
+    border-radius: 10px;
+    position: absolute;
+    top: -10px;
+    background: rgba(255, 255, 255, .6);
+    left: 0;
+    transform: scale(.95);
+    -webkit-transform: scale(.95);
+    -ms-transform: scale(.95);
+    z-index: -1;
+  }
+}
+
+snack-bar-container.success-snackbar,
+snack-bar-container.error-snackbar,
+snack-bar-container.warning-snackbar {
+  .mat-simple-snackbar {
+    justify-content: center;
+  }
+}
+
+snack-bar-container.success-snackbar {
+  background-color: #2cc460;
+  color: white;
+}
+
+snack-bar-container.error-snackbar {
+  background-color: #d45d56;
+  color: white;
 }

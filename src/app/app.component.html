@@ -1,1 +1,20 @@
-<router-outlet></router-outlet>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true"><p
+  style="color: white"> Loading... </p></ngx-spinner>
+
+<mat-toolbar color="primary" class="app-header">
+  <div>
+    <a href="#" class="logo-name">LinkedWay</a>
+    <span class="logo-name" *ngIf="currentUser"> | {{currentUser.firstName}} {{currentUser.lastName}}</span>
+  </div>
+  <span class="nav-tool-items" *ngIf="!currentUser">
+    <a mat-button routerLink="login" routerLinkActive="active">Увійти</a>
+    <a mat-button mat-raised-button routerLink="registration" routerLinkActive="active">Реєстрація</a>
+  </span>
+  <span class="nav-tool-items" *ngIf="currentUser">
+    <a mat-button mat-raised-button routerLink="login" routerLinkActive="active" (click)="logout()">Вийти</a>
+  </span>
+</mat-toolbar>
+
+<div class="app-content">
+  <router-outlet></router-outlet>
+</div>

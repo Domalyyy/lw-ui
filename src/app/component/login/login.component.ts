@@ -1,22 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../../service/authentication/authentication.service';
-import {MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
+import {NotificationService} from '../../service/notification/notification.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
-  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
-  loading = false;
-  submitted = false;
+export class LoginComponent implements OnInit, OnDestroy {
+  subscriptions: Subscription[] = [];
   returnUrl?: string;
-  error = '';
 
   loginForm: FormGroup = new FormGroup({
     username: new FormControl('', [
@@ -28,8 +26,11 @@ export class LoginComponent implements OnInit {
     ]),
   });
 
-  constructor(private authenticationService: AuthenticationService, private matSnackBar: MatSnackBar, private router: Router,
-              private activatedRoute: ActivatedRoute) {
+  constructor(private authenticationService: AuthenticationService,
+              private matSnackBar: MatSnackBar,
+              private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private notificationService: NotificationService) {
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/']);
     }
@@ -39,32 +40,28 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || '/';
   }
 
-  openSnackBar(message: string): void {
-    this.matSnackBar.open(message, 'Close', {
-      horizontalPosition: this.horizontalPosition,
-      verticalPosition: this.verticalPosition,
-    });
+  login(): void {
+    if (!this.loginForm.invalid) {
+      this.subscriptions.push(
+        this.authenticationService
+          .login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
+          .pipe(first())
+          .subscribe(
+            () => {
+              this.router.navigate([this.returnUrl]);
+              location.href = this.returnUrl as string;
+            },
+            () => {
+              this.notificationService.notifyFailure('Логін або пароль було введено неправильно.');
+            }
+          )
+      );
+    }
   }
 
-  login(): void {
-    this.submitted = true;
-
-    if (!this.loginForm.invalid) {
-      this.loading = true;
-      this.authenticationService
-        .login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
-        .pipe(first())
-        .subscribe(
-          () => {
-            console.log(this.returnUrl);
-            this.router.navigate([this.returnUrl]);
-            location.href = this.returnUrl as string;
-          },
-          (error: string) => {
-            this.error = error;
-            this.loading = false;
-          }
-        );
-    }
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => {
+      subscription.unsubscribe();
+    });
   }
 }

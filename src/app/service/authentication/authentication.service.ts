@@ -5,6 +5,8 @@ import {environment} from '../../../environments/environment';
 import {User} from '../../model/user';
 import {map} from 'rxjs/operators';
 import {CookieService} from 'ngx-cookie-service';
+import {UserRegistrationDTO} from '../../model/user-registrationDTO';
+import {UserService} from '../user-service/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User> | undefined;
   public currentUser: Observable<User> | undefined;
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {
+  constructor(private http: HttpClient, private cookieService: CookieService, private userService: UserService) {
     const savedUser = this.cookieService.get('currentUser');
     if (savedUser) {
       this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(this.cookieService.get('currentUser')));
@@ -32,10 +34,7 @@ export class AuthenticationService {
   login(username: string, password: string): any {
     return this.http.post<any>(this.AUTHENTICATION_URL, {username, password})
       .pipe(map((user: User) => {
-        this.cookieService.set('currentUser', JSON.stringify(user));
-        if (this.currentUserSubject) {
-          this.currentUserSubject.next(user);
-        }
+        this.saveSessionUser(user);
 
         return user;
       }));
@@ -43,6 +42,23 @@ export class AuthenticationService {
 
   logout(): any {
     this.cookieService.delete('currentUser');
-    this.currentUserSubject = undefined;
+    // @ts-ignore
+    this.currentUserSubject?.next(undefined);
+  }
+
+  register(userRegistrationDTO: UserRegistrationDTO): any {
+    return this.userService.save(userRegistrationDTO)
+      .pipe(map((user: User) => {
+        this.saveSessionUser(user);
+
+        return user;
+      }));
+  }
+
+  private saveSessionUser(user: User): void {
+    this.cookieService.set('currentUser', JSON.stringify(user));
+    if (this.currentUserSubject) {
+      this.currentUserSubject.next(user);
+    }
   }
 }

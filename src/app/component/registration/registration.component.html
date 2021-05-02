@@ -1,1 +1,37 @@
-<p>registration works!</p>
+<div class="registration-page" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>Реєстрація</mat-card-title>
+    </mat-card-header>
+
+    <form [formGroup]="registerForm" class="form">
+      <mat-card-content>
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Ім'я" formControlName="firstName">
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Прізвище" formControlName="lastName">
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Email" formControlName="email">
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <input type="password" matInput placeholder="Пароль" formControlName="password">
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label>Чому ти тут?</mat-label>
+          <mat-select #reasonValue formControlName="role">
+            <mat-option [value]="reason" *ngFor="let reason of Reason">{{reason}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+
+      <button mat-stroked-button color="accent" class="btn-block" (click)="register()">Зареєструватись</button>
+
+    </form>
+  </mat-card>
+</div>
