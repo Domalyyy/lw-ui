@@ -1,24 +1,29 @@
-<div class="login-page">
-  <mat-card>
-    <mat-card-title>LinkedWay</mat-card-title>
+<div class="login-page" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card class="box">
+    <mat-card-header>
+      <mat-card-title>Увійти</mat-card-title>
+    </mat-card-header>
     <mat-card-content>
-      <form [formGroup]="loginForm">
+      <form [formGroup]="loginForm" class="form">
         <p>
-          <mat-form-field>
-            <input type="text" matInput placeholder="Нікнейм" formControlName="username">
+          <mat-form-field class="full-width">
+            <input type="email" matInput placeholder="Нікнейм" formControlName="username">
           </mat-form-field>
         </p>
 
         <p>
-          <mat-form-field>
-            <input type="password" matInput placeholder="Пароль" formControlName="password">
+          <mat-form-field class="full-width">
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Пароль" formControlName="password">
+            <button mat-icon-button matSuffix
+                    (click)="hide = !hide"
+                    [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
           </mat-form-field>
         </p>
 
-        <div class="button">
-          <button type="submit" mat-button>Зареєструватись</button>
-          <button type="submit" (click)="login()" mat-button>Увійти</button>
-        </div>
+        <button mat-stroked-button color="accent" class="btn-block" (click)="login()">Увійти</button>
       </form>
     </mat-card-content>
   </mat-card>

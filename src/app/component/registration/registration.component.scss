@@ -1,0 +1,39 @@
+.registration-page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .form {
+    min-width: 100%;
+    max-width: 300px;
+    width: 100%;
+  }
+
+  .full-width, .btn-block {
+    width: 100%;
+  }
+
+  .main-wrapper mat-card-header {
+    text-align: center;
+    width: 100%;
+    display: block;
+    font-weight: 700;
+  }
+
+  mat-card-header mat-card-title {
+    font-size: 30px;
+    margin: 0;
+  }
+
+  .mat-card {
+    padding: 45px 70px 55px;
+  }
+
+  .mat-stroked-button {
+    border: 1px solid currentColor;
+    line-height: 54px;
+    background: #FFF7FA;
+  }
+}
