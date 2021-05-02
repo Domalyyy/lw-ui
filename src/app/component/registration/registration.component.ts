@@ -19,6 +19,7 @@ export class RegistrationComponent implements OnDestroy {
   recruiterReason = 'Шукаю працівника';
   userReason = 'Шукаю роботу';
   Reason: any = [this.recruiterReason, this.userReason];
+  hide = true;
   @ViewChild('reasonValue') matSelect: MatSelect | undefined;
 
   registerForm: FormGroup = new FormGroup({

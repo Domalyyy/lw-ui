@@ -12,23 +12,6 @@
   color: #ffffff;
 }
 
-.mat-spinner {
-  height: 100% !important;
-  width: 100% !important;
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  svg {
-    position: relative !important;
-  }
-}
-
-.mat-progress-spinner svg {
-  position: relative !important;
-}
-
 .app-content {
   height: 80%;
   width: 100%;

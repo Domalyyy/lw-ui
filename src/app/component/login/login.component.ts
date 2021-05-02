@@ -15,6 +15,7 @@ import {Subscription} from 'rxjs';
 export class LoginComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   returnUrl?: string;
+  hide = true;
 
   loginForm: FormGroup = new FormGroup({
     username: new FormControl('', [
