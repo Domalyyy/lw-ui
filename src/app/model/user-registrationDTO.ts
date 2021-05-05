@@ -5,3 +5,4 @@ export class UserRegistrationDTO {
   password?: string;
   role?: string;
 }
+

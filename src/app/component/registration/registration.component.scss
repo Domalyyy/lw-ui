@@ -5,11 +5,9 @@
   justify-content: center;
   align-items: center;
 
-  .form {
-    min-width: 100%;
-    max-width: 300px;
-    width: 100%;
-  }
+  //.form {
+  //  width: 100%;
+  //}
 
   .full-width, .btn-block {
     width: 100%;
@@ -18,6 +16,7 @@
   .main-wrapper mat-card-header {
     text-align: center;
     width: 100%;
+    height: 70%;
     display: block;
     font-weight: 700;
   }

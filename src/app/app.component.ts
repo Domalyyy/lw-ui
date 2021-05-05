@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from './service/authentication/authentication.service';
 import {Subscription} from 'rxjs';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {MatSidenav} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   currentUser: User | undefined;
   title = 'LinkedWay';
+  sidenav: MatSidenav | undefined;
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
@@ -30,6 +32,7 @@ export class AppComponent implements OnInit, OnDestroy {
           .subscribe(
             (sessionUser) => {
               this.currentUser = sessionUser;
+              console.log(this.currentUser);
 
               if (this.currentUser) {
                 this.ngxSpinnerService.hide();

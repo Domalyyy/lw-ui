@@ -1,0 +1,27 @@
+<div class="task-component">
+  <mat-vertical-stepper [linear]=false *ngIf="tasks.length !== 0">
+    <mat-step [stepControl]="formGroup" *ngFor="let task of tasks let i = index">
+      <form [formGroup]="formGroup">
+        <ng-template matStepLabel>{{task.question}}</ng-template>
+        <mat-radio-group formControlName="{{'th' + i}}" required>
+          <mat-radio-button matInput color="primary" required value="{{task.id + ' correct'}}"
+                            class="margin20px">{{task.correctAnswer}}</mat-radio-button>
+          <mat-radio-button matInput color="primary" required value="{{task.id + ' wrong'}}"
+                            class="margin20px">{{task.wrongAnswer}}</mat-radio-button>
+        </mat-radio-group>
+        <div class="margin20px">
+          <button mat-raised-button color="primary" matStepperNext (click)="shuffle()">Наступне</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Підтвердити</ng-template>
+      <p class="margin20px">Не бажаєш перевірити?</p>
+      <div>
+        <button class="margin20px" mat-raised-button color="primary" matStepperPrevious>Назад</button>
+        <button class="margin20px" mat-raised-button color="primary" (click)="submit()">Підтвердити</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+</div>

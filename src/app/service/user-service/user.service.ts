@@ -7,7 +7,7 @@ import {UserRegistrationDTO} from '../../model/user-registrationDTO';
   providedIn: 'root'
 })
 export class UserService {
-  private registrationUrl = environment.baseUrl + '/registration';
+  private registrationUrl = environment.baseUrl + '/signup';
 
   constructor(private httpClient: HttpClient) {
   }

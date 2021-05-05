@@ -4,6 +4,7 @@ import {LoginComponent} from './component/login/login.component';
 import {HomeComponent} from './component/home/home.component';
 import {RegistrationComponent} from './component/registration/registration.component';
 import {AuthGuard} from './authentication/auth-guard';
+import {TaskComponent} from './component/task/task.component';
 
 const routes: Routes = [
   // {path: '**', redirectTo: 'LinkedWay'},
@@ -11,6 +12,7 @@ const routes: Routes = [
   {path: 'LinkedWay', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
+  {path: 'task/:programming-language', component: TaskComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

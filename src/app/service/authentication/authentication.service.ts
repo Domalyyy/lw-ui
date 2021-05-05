@@ -12,7 +12,7 @@ import {UserService} from '../user-service/user.service';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private AUTHENTICATION_URL = environment.baseUrl + '/login';
+  private authenticationurl = environment.baseUrl + '/login';
 
   private currentUserSubject: BehaviorSubject<User | undefined> | undefined;
   public currentUser: Observable<User | undefined> | undefined;
@@ -32,7 +32,7 @@ export class AuthenticationService {
   }
 
   login(username: string, password: string): any {
-    return this.http.post<any>(this.AUTHENTICATION_URL, {username, password})
+    return this.http.post<any>(this.authenticationurl, {username, password})
       .pipe(map((user: User) => {
         this.saveSessionUser(user);
 
