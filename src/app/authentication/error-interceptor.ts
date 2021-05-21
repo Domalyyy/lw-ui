@@ -12,10 +12,14 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(error => {
+      if (error.status === 0) {
+        this.notificationService.notifyFailure();
+      }
       if (error.status === 500) {
         this.notificationService.notifyFailure();
       }
       if (error.status === 401) {
+        this.notificationService.notifyFailure('Логін або пароль було введено неправильно.');
         this.authenticationService.logout();
       }
 

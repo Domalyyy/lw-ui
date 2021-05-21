@@ -1,6 +1,6 @@
 export enum Role {
-  USER,
-  RECRUITER
+  USER = 'Айтішнік',
+  RECRUITER = 'Рекрутер'
 }
 
 export enum Gradation {
@@ -11,7 +11,7 @@ export enum Gradation {
 }
 
 export class User {
-  id?: number;
+  id: number | undefined;
   firstName?: string;
   lastName?: string;
   email?: string;
@@ -19,4 +19,5 @@ export class User {
   role?: Role;
   gradation?: Gradation;
   token?: string;
+  completedTasks?: number;
 }

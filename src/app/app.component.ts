@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from './service/authentication/authentication.service';
 import {Subscription} from 'rxjs';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {MatSidenav} from '@angular/material/sidenav';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-root',
@@ -14,14 +16,18 @@ export class AppComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   currentUser: User | undefined;
   title = 'LinkedWay';
+  sidenav: MatSidenav | undefined;
+  userRole: string | undefined;
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
-              private ngxSpinnerService: NgxSpinnerService) {
+              private ngxSpinnerService: NgxSpinnerService,
+              private cookieService: CookieService) {
   }
 
   ngOnInit(): void {
     this.ngxSpinnerService.show();
+    this.userRole = String(this.cookieService.get('userRole'));
 
     if (this.authenticationService.currentUser) {
       this.subscriptions.push(

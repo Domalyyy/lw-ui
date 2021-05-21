@@ -2,9 +2,16 @@
   style="color: white"> Loading... </p></ngx-spinner>
 
 <mat-toolbar color="primary" class="app-header">
+  <button mat-icon-button *ngIf="currentUser && sidenav.mode === 'over'" (click)="sidenav.toggle()">
+    <mat-icon *ngIf="!sidenav.opened">
+      menu
+    </mat-icon>
+    <mat-icon *ngIf="sidenav.opened">
+      close
+    </mat-icon>
+  </button>
   <div>
     <a href="#" class="logo-name">LinkedWay</a>
-    <span class="logo-name" *ngIf="currentUser"> | {{currentUser.firstName}} {{currentUser.lastName}}</span>
   </div>
   <span class="nav-tool-items" *ngIf="!currentUser">
     <a mat-button routerLink="login" routerLinkActive="active">Увійти</a>
@@ -15,6 +22,42 @@
   </span>
 </mat-toolbar>
 
-<div class="app-content">
-  <router-outlet></router-outlet>
-</div>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+    <div *ngIf="currentUser">
+      <h4 class="name">{{currentUser.firstName}} {{currentUser.lastName}}</h4>
+      <p class="designation" *ngIf="userRole === 'USER'">Айтішнік</p>
+      <p class="designation" *ngIf="userRole === 'RECRUITER'">Рекрутер</p>
+
+      <mat-divider></mat-divider>
+
+      <a (click)="sidenav.toggle()" mat-button class="menu-button" routerLink="/" routerLinkActive="active">
+        <mat-icon>home</mat-icon>
+        <span>Головна</span>
+      </a>
+
+      <mat-accordion *ngIf="userRole === 'USER'">
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>assignment</mat-icon>
+              Завдання
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p>
+            <a (click)="sidenav.toggle()" mat-button class="menu-button" [routerLink]="['/task', 'java']"
+               routerLinkActive="active">
+              <span>Java</span>
+            </a>
+          </p>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="content mat-elevation-z8">
+      <router-outlet class="rout-content"></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

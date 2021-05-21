@@ -94,5 +94,7 @@ export class RegistrationComponent implements OnDestroy {
     this.subscriptions.forEach(subscription => {
       subscription.unsubscribe();
     });
+
+    this.ngxSpinnerService.hide();
   }
 }

@@ -4,8 +4,8 @@ import {AuthenticationService} from '../../service/authentication/authentication
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
-import {NotificationService} from '../../service/notification/notification.service';
 import {Subscription} from 'rxjs';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private authenticationService: AuthenticationService,
               private matSnackBar: MatSnackBar,
               private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private notificationService: NotificationService) {
+              private ngxSpinnerService: NgxSpinnerService,
+              private activatedRoute: ActivatedRoute) {
     if (this.authenticationService.currentUserValue) {
       this.router.navigate(['/']);
     }
@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login(): void {
+    this.ngxSpinnerService.show();
     if (!this.loginForm.invalid) {
       this.subscriptions.push(
         this.authenticationService
@@ -49,11 +50,12 @@ export class LoginComponent implements OnInit, OnDestroy {
           .pipe(first())
           .subscribe(
             () => {
+              this.ngxSpinnerService.hide();
               this.router.navigate([this.returnUrl]);
               location.href = this.returnUrl as string;
             },
             () => {
-              this.notificationService.notifyFailure('Логін або пароль було введено неправильно.');
+              this.ngxSpinnerService.hide();
             }
           )
       );
@@ -64,5 +66,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscription => {
       subscription.unsubscribe();
     });
+
+    this.ngxSpinnerService.hide();
   }
 }
