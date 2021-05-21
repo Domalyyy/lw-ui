@@ -1,5 +1,3 @@
-import {Task} from './task';
-
 export enum Role {
   USER = 'Айтішнік',
   RECRUITER = 'Рекрутер'

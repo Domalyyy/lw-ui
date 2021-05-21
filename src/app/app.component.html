@@ -26,7 +26,8 @@
   <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
     <div *ngIf="currentUser">
       <h4 class="name">{{currentUser.firstName}} {{currentUser.lastName}}</h4>
-      <p class="designation">{{currentUser.role}}</p>
+      <p class="designation" *ngIf="userRole === 'USER'">Айтішнік</p>
+      <p class="designation" *ngIf="userRole === 'RECRUITER'">Рекрутер</p>
 
       <mat-divider></mat-divider>
 
@@ -35,7 +36,7 @@
         <span>Головна</span>
       </a>
 
-      <mat-accordion>
+      <mat-accordion *ngIf="userRole === 'USER'">
         <mat-expansion-panel hideToggle>
           <mat-expansion-panel-header>
             <mat-panel-title>

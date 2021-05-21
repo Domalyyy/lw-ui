@@ -56,6 +56,12 @@ export class AuthenticationService {
 
   private saveSessionUser(user: User): void {
     this.cookieService.set('currentUser', JSON.stringify(user));
+    if (user.id) {
+      this.cookieService.set('userId', user.id.toString());
+    }
+    if (user.role) {
+      this.cookieService.set('userRole', user.role.toString());
+    }
     if (this.currentUserSubject) {
       this.currentUserSubject.next(user);
     }

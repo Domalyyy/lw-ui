@@ -22,7 +22,6 @@ export class TaskService {
   }
 
   submit(answer: Answer): Observable<any> {
-    console.log(answer);
     return this.httpClient.patch<any>(this.submitUrl, answer);
   }
 }
