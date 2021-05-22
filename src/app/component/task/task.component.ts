@@ -48,11 +48,11 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.userId = Number(this.cookieService.get('userId'));
     this.subscriptions.push(
       this.activatedRoute.params.subscribe(params => {
+        this.ngxSpinnerService.show();
         this.programmingLanguage = params['programming-language'];
+        this.getTasks();
       })
     );
-
-    this.getTasks();
   }
 
   submit(): void {
@@ -104,7 +104,6 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   private getTasks(): void {
-    this.ngxSpinnerService.show();
     if (this.programmingLanguage && this.userId) {
       this.subscriptions.push(
         this.taskService.getTasks(this.programmingLanguage, this.userId).subscribe((tasks: Task[]) => {

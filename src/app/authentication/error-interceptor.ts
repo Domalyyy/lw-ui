@@ -4,10 +4,13 @@ import {Observable, throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {AuthenticationService} from '../service/authentication/authentication.service';
 import {NotificationService} from '../service/notification/notification.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private authenticationService: AuthenticationService, private notificationService: NotificationService) {
+  constructor(private authenticationService: AuthenticationService,
+              private ngxSpinnerService: NgxSpinnerService,
+              private notificationService: NotificationService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -23,6 +26,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.authenticationService.logout();
       }
 
+      this.ngxSpinnerService.hide();
       return throwError(error);
     }));
   }

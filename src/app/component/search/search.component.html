@@ -1,0 +1,64 @@
+<div class="search-component">
+  <table mat-table [dataSource]="users" matSort class="mat-elevation-z8" *ngIf="users && users.length !== 0">
+
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ім'я</th>
+      <td mat-cell *matCellDef="let user"> {{user.firstName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Прізвище</th>
+      <td mat-cell *matCellDef="let user"> {{user.lastName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email</th>
+      <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="gradation">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Рівень</th>
+      <td mat-cell *matCellDef="let user"> {{user.gradation}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="completedTasks">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Виконаних завдань</th>
+      <td mat-cell *matCellDef="let user"> {{user.completedTasks}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="generalCompletedTasks">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Усіх виконаних завдань</th>
+      <td mat-cell *matCellDef="let user"> {{user.generalCompletedTasks}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Дії</th>
+      <td mat-cell *matCellDef="let user">
+        <button *ngIf="!user.friend && !user.friendRequested" mat-raised-button color="primary"
+                (click)="sendFriendRequest(user.id)">
+          Додати в друзі
+        </button>
+        <button *ngIf="user.friendRequested" mat-raised-button color="accent" (click)="cancelFriendRequest(user.id)">
+          Скасувати запит у друзі
+        </button>
+        <button *ngIf="user.friend" mat-raised-button color="accent" (click)="removeFriend(user.id)">
+          Видалити з друзів
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div class="no-users" *ngIf="!users || users.length === 0">
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>Нікого не знайдено</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Наразі нікого не знайли для даної мови, спробуйте пізніше</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

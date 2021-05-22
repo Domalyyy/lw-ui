@@ -5,6 +5,9 @@ import {HomeComponent} from './component/home/home.component';
 import {RegistrationComponent} from './component/registration/registration.component';
 import {AuthGuard} from './authentication/auth-guard';
 import {TaskComponent} from './component/task/task.component';
+import {SearchComponent} from './component/search/search.component';
+import {FriendRequestsComponent} from './component/friend-requests/friend-requests.component';
+import {FriendComponent} from './component/friend/friend.component';
 
 const routes: Routes = [
   // {path: '**', redirectTo: 'LinkedWay'},
@@ -12,7 +15,10 @@ const routes: Routes = [
   {path: 'LinkedWay', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
-  {path: 'task/:programming-language', component: TaskComponent, canActivate: [AuthGuard]}
+  {path: 'task/:programming-language', component: TaskComponent, canActivate: [AuthGuard]},
+  {path: 'search/:programming-language', component: SearchComponent, canActivate: [AuthGuard]},
+  {path: 'friendRequests', component: FriendRequestsComponent, canActivate: [AuthGuard]},
+  {path: 'friends', component: FriendComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
