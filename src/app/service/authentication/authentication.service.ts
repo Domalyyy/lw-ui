@@ -6,7 +6,7 @@ import {User} from '../../model/user';
 import {map} from 'rxjs/operators';
 import {CookieService} from 'ngx-cookie-service';
 import {UserRegistrationDTO} from '../../model/user-registrationDTO';
-import {UserService} from '../user-service/user.service';
+import {UserService} from '../user/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +41,9 @@ export class AuthenticationService {
   }
 
   logout(): any {
-    this.cookieService.delete('currentUser');
+    this.cookieService.deleteAll();
     this.currentUserSubject?.next(undefined);
+    window.location.reload();
   }
 
   register(userRegistrationDTO: UserRegistrationDTO): any {

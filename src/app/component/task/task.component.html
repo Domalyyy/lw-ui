@@ -25,8 +25,8 @@
     </mat-step>
   </mat-vertical-stepper>
 
-  <div class="no-tasks">
-    <mat-card class="box" *ngIf="tasks.length === 0">
+  <div class="no-tasks" *ngIf="tasks.length === 0">
+    <mat-card class="box">
       <mat-card-header>
         <mat-card-title>Завдання виконані</mat-card-title>
       </mat-card-header>

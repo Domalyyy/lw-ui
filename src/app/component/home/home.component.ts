@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {UserService} from '../../service/user-service/user.service';
+import {UserService} from '../../service/user/user.service';
 import {CookieService} from 'ngx-cookie-service';
 import {NgxSpinnerService} from 'ngx-spinner';
 
