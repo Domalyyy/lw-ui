@@ -1,0 +1,44 @@
+<div class="friend-component">
+  <table mat-table [dataSource]="users" matSort class="mat-elevation-z8" *ngIf="users && users.length !== 0">
+
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Ім'я</th>
+      <td mat-cell *matCellDef="let user"> {{user.firstName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Прізвище</th>
+      <td mat-cell *matCellDef="let user"> {{user.lastName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email</th>
+      <td mat-cell *matCellDef="let user"> {{user.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Дії</th>
+      <td mat-cell *matCellDef="let user">
+        <div class="actions">
+          <button mat-raised-button color="accent" (click)="remove(user.id)">
+            Видалити
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div class="no-users" *ngIf="!users || users.length === 0">
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>Пусто</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Наразі друзів немає</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
