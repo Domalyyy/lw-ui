@@ -37,6 +37,12 @@
       </a>
 
       <a (click)="sidenav.toggle()" mat-button class="menu-button"
+         routerLink="/chat" routerLinkActive="active">
+        <mat-icon>message</mat-icon>
+        <span>Повідомлення</span>
+      </a>
+
+      <a (click)="sidenav.toggle()" mat-button class="menu-button"
          routerLink="/friends" routerLinkActive="active">
         <mat-icon>accessibility</mat-icon>
         <span>Друзі</span>

@@ -51,7 +51,6 @@ export class RegistrationComponent implements OnDestroy {
     if (!this.registerForm.invalid) {
       this.ngxSpinnerService.show();
       const user = this.buildUserRegistrationDTO();
-
       this.subscriptions.push(
         this.authenticationService.register(user).subscribe(
           () => {
@@ -74,11 +73,14 @@ export class RegistrationComponent implements OnDestroy {
 
   private buildUserRegistrationDTO(): UserRegistrationDTO {
     let role;
+    let gradation;
     if (this.matSelect?.value === this.recruiterReason) {
       role = 'RECRUITER';
+      gradation = 'NOT_REQUIRED';
     }
     if (this.matSelect?.value === this.userReason) {
       role = 'USER';
+      gradation = 'TRAINEE';
     }
 
     return {
@@ -86,6 +88,7 @@ export class RegistrationComponent implements OnDestroy {
       lastName: this.registerForm.controls.lastName.value,
       email: this.registerForm.controls.email.value,
       password: this.registerForm.controls.password.value,
+      gradation,
       role,
     };
   }

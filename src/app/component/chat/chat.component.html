@@ -1,0 +1,90 @@
+<div class="chat-component">
+  <div class="message-component" *ngIf="messages && messages.length !== 0">
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+                           *ngFor="let message of messages"
+                           (opened)="getDialogs(message.senderId, message.recipientId)">
+        <mat-expansion-panel-header>
+          <mat-panel-title *ngIf="userId && userId === message.senderId">
+            {{message.recipientName}}
+          </mat-panel-title>
+
+          <mat-panel-title *ngIf="userId && userId === message.recipientId">
+            {{message.senderName}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div *ngIf="userId && userId === message.senderId">
+          <div *ngFor="let dialog of dialogs">
+            <div class="chat">
+              <div class="left" *ngIf="dialog.senderName !== message.senderName">
+                <div class="text">
+                  {{dialog.body}}
+                </div>
+              </div>
+
+              <div class="right" *ngIf="dialog.senderName === message.senderName">
+                <div class="text">
+                  {{dialog.body}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <form>
+            <mat-form-field class="example-full-width">
+              <mat-label>Нове повідомлення</mat-label>
+              <input matInput #messagelength maxlength="1000">
+              <mat-hint align="end">{{messagelength.value.length}} / 1000</mat-hint>
+            </mat-form-field>
+
+            <button mat-stroked-button color="primary" class="btn-block"
+                    (click)="send(message.recipientId, messagelength.value)">Відправити
+            </button>
+          </form>
+        </div>
+
+        <div *ngIf="userId && userId === message.recipientId">
+          <div *ngFor="let dialog of dialogs">
+            <div class="chat">
+              <div class="left" *ngIf="dialog.recipientName === message.recipientName">
+                <div class="text">
+                  {{dialog.body}}
+                </div>
+              </div>
+
+              <div class="right" *ngIf="dialog.recipientName !== message.recipientName">
+                <div class="text">
+                  {{dialog.body}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <form>
+            <mat-form-field class="example-full-width">
+              <mat-label>Нове повідомлення</mat-label>
+              <input matInput #messagelength maxlength="1000">
+              <mat-hint align="end">{{messagelength.value.length}} / 1000</mat-hint>
+            </mat-form-field>
+
+            <button mat-stroked-button color="primary" class="btn-block"
+                    (click)="send(message.senderId, messagelength.value)">Відправити
+            </button>
+          </form>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div class="no-messages" *ngIf="!messages || messages.length === 0">
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>Пусто</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Наразі повідомлень немає</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

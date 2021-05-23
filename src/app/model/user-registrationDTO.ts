@@ -3,6 +3,7 @@ export class UserRegistrationDTO {
   lastName?: string;
   email?: string;
   password?: string;
+  gradation?: string;
   role?: string;
 }
 
