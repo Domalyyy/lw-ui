@@ -3,6 +3,8 @@ import {Subscription} from 'rxjs';
 import {CookieService} from 'ngx-cookie-service';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {UserService} from '../../service/user/user.service';
+import {MatDialog} from '@angular/material/dialog';
+import {MiniChatComponent} from '../mini-chat/mini-chat.component';
 
 @Component({
   selector: 'app-friend',
@@ -17,6 +19,7 @@ export class FriendComponent implements OnInit, OnDestroy {
 
   constructor(private cookieService: CookieService,
               private ngxSpinnerService: NgxSpinnerService,
+              public dialog: MatDialog,
               private userService: UserService) {
   }
 
@@ -55,5 +58,9 @@ export class FriendComponent implements OnInit, OnDestroy {
         this.getFriends();
       });
     }
+  }
+
+  sendMessage(userId: number): void {
+    this.dialog.open(MiniChatComponent).componentInstance.recipientId = userId;
   }
 }

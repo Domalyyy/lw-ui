@@ -1,0 +1,14 @@
+<div class="minichat-component">
+  <form>
+    <mat-form-field class="example-full-width" (submit)="send(messagelength.value)">
+      <mat-label>Нове повідомлення</mat-label>
+      <input matInput #messagelength maxlength="1000">
+      <mat-hint align="end">{{messagelength.value.length}} / 1000</mat-hint>
+    </mat-form-field>
+
+    <br>
+    <button mat-stroked-button color="primary" class="btn-block" (click)="send(messagelength.value)">
+      Відправити
+    </button>
+  </form>
+</div>

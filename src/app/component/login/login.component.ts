@@ -38,7 +38,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || '/';
+    this.returnUrl = '/';
+    // this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || '/';
   }
 
   login(): void {

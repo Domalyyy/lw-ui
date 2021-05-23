@@ -57,9 +57,11 @@ import {CdkTableModule} from '@angular/cdk/table';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {A11yModule} from '@angular/cdk/a11y';
 import {CdkStepperModule} from '@angular/cdk/stepper';
-import { SearchComponent } from './component/search/search.component';
-import { FriendRequestsComponent } from './component/friend-requests/friend-requests.component';
-import { FriendComponent } from './component/friend/friend.component';
+import {SearchComponent} from './component/search/search.component';
+import {FriendRequestsComponent} from './component/friend-requests/friend-requests.component';
+import {FriendComponent} from './component/friend/friend.component';
+import {ChatComponent} from './component/chat/chat.component';
+import { MiniChatComponent } from './component/mini-chat/mini-chat.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,9 @@ import { FriendComponent } from './component/friend/friend.component';
     TaskComponent,
     SearchComponent,
     FriendRequestsComponent,
-    FriendComponent
+    FriendComponent,
+    ChatComponent,
+    MiniChatComponent
   ],
   imports: [
     BrowserModule,
