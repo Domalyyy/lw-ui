@@ -2,7 +2,8 @@
   <div class="message-component" *ngIf="messages && messages.length !== 0">
     <mat-accordion>
       <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"
-                           *ngFor="let message of messages" (opened)="getDialogs()">
+                           *ngFor="let message of messages"
+                           (opened)="getDialogs(message.senderId, message.recipientId)">
         <mat-expansion-panel-header>
           <mat-panel-title *ngIf="userId && userId === message.senderId">
             {{message.recipientName}}
@@ -37,7 +38,9 @@
               <mat-hint align="end">{{messagelength.value.length}} / 1000</mat-hint>
             </mat-form-field>
 
-            <button mat-stroked-button color="primary" class="btn-block" (click)="send(message.recipientId, messagelength.value)">Відправити</button>
+            <button mat-stroked-button color="primary" class="btn-block"
+                    (click)="send(message.recipientId, messagelength.value)">Відправити
+            </button>
           </form>
         </div>
 
@@ -65,7 +68,9 @@
               <mat-hint align="end">{{messagelength.value.length}} / 1000</mat-hint>
             </mat-form-field>
 
-            <button mat-stroked-button color="primary" class="btn-block" (click)="send(message.senderId, messagelength.value)">Відправити</button>
+            <button mat-stroked-button color="primary" class="btn-block"
+                    (click)="send(message.senderId, messagelength.value)">Відправити
+            </button>
           </form>
         </div>
       </mat-expansion-panel>

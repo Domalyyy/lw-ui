@@ -38,7 +38,6 @@ export class MiniChatComponent implements OnInit, OnDestroy {
       this.subscriptions.push(
         this.messagingService.getDialog(this.userId, this.recipientId).subscribe((data: any) => {
           this.dialogs = data;
-          console.log(data);
           this.ngxSpinnerService.hide();
         })
       );

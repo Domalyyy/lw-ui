@@ -42,7 +42,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
       this.subscriptions.push(
         this.messagingService.getMessages(this.userId).subscribe((data: any) => {
-          console.log(data);
           this.messages = data;
 
           this.ngxSpinnerService.hide();
@@ -51,20 +50,24 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   }
 
-  getDialogs(): void {
+  getDialogs(firstUserId: number, secondUserId: number): any {
+    let recipientId = 0;
+    if (this.userId === firstUserId) {
+      recipientId = secondUserId;
+    }
+    if (this.userId === secondUserId) {
+      recipientId = firstUserId;
+    }
     if (this.panelOpenState) {
       this.ngxSpinnerService.show();
     }
-    if (this.messages) {
-      this.messages.forEach(m => {
-        this.subscriptions.push(
-          this.messagingService.getDialog(m.senderId, m.recipientId).subscribe((data: any) => {
-            this.dialogs = data;
-            console.log(data)
-            this.ngxSpinnerService.hide();
-          })
-        );
-      });
+    if (this.userId) {
+      this.subscriptions.push(
+        this.messagingService.getDialog(this.userId, recipientId).subscribe((data: any) => {
+          this.dialogs = data;
+          this.ngxSpinnerService.hide();
+        })
+      );
     } else {
       this.ngxSpinnerService.hide();
     }

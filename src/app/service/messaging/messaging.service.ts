@@ -28,8 +28,6 @@ export class MessagingService {
   }
 
   sendMessages(message: any): Observable<any> {
-    console.log(message);
-    debugger;
     return this.httpClient.post<any>(this.sendUrl, message);
   }
 }
