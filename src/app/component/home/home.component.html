@@ -6,7 +6,7 @@
     <mat-card-content>
       <div *ngIf="completedTasksCount && completedTasksCount !== 0">
         <p>Кількість виконаних завдань: {{completedTasksCount}}</p>
-        <p>До наступного рівня ще: {{needCount}}</p>
+        <p *ngIf="needCount">До наступного рівня ще: {{needCount}}</p>
       </div>
       <p *ngIf="!completedTasksCount || completedTasksCount === 0">Спробуй виконати якесь завдання</p>
     </mat-card-content>
