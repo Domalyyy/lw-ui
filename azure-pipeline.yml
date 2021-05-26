@@ -51,7 +51,7 @@ jobs:
         displayName: Login to ACR
         inputs:
           command: login
-          containerRegistry: LinkedWay
+          containerRegistry: DockerHub
         condition: eq(variables['Build.SourceBranch'], variables['Main.Branch'])
 
       - task: Docker@2

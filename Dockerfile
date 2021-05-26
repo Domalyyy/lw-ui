@@ -1,15 +1,11 @@
-FROM node:alpine AS lw-ui
+FROM nginx:1.17.8
 
-WORKDIR /app
-
-COPY . .
-
-RUN npm ci && npm run build --prod
-
-FROM nginx:alpine
-
-COPY --from=lw-ui /app/dist/lw-ui /usr/share/nginx/html
-
-HEALTHCHECK --interval=30s --retries=5 --start-period=10s CMD service nginx status || exit 1
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./dist/lw-ui /usr/share/nginx/html
 
 EXPOSE 80
+
+COPY ./entrypoint.sh /usr/share/nginx
+RUN chmod +x /usr/share/nginx/entrypoint.sh
+
+ENTRYPOINT ["/usr/share/nginx/entrypoint.sh"]
