@@ -58,7 +58,7 @@ jobs:
         displayName: Build and Push ($(Main.Branch))
         inputs:
           command: buildAndPush
-          repository: lw-ui
+          repository: domaly/lw-ui
           tags: |
             0.0-$(Build.BuildNumber).0
             latest
