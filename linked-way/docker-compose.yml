@@ -28,7 +28,7 @@ services:
       disable: true
 
   ui:
-    image: 6ed86e7bcc92
+    image:  domaly/lw-ui:latest
     environment:
       - LW_SERVER=http://localhost:8080
     ports:
