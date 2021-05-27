@@ -4,10 +4,6 @@ services:
   db:
     hostname: db
     image: mysql
-    restart: always
-    volumes:
-      - ./init_schema.sql:/docker-entrypoint-initdb.d/init_schema.sql
-      - /data/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=password
     ports:
@@ -18,8 +14,9 @@ services:
     image: domaly/lw-server:latest
     restart: on-failure
     environment:
-      - ACTIVE_PROFILES=dev
       - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:6603/lw?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=password
     depends_on:
       - db
     ports:
@@ -28,7 +25,7 @@ services:
       disable: true
 
   ui:
-    image:  domaly/lw-ui:latest
+    image: domaly/lw-ui:latest
     environment:
       - LW_SERVER=http://localhost:8080
     ports:

@@ -67,7 +67,7 @@ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 Після цього можна запускати всю інфраструктуру за допомогою `docker`, виконавши наступну команду в корені проєкті:
 
 ```bash
-docker-compose -f linked-way/docker-compose.yml up -d
+docker-compose -f docker-compose.yml up -d
 ```
 
 ## Використовуючи локальні сервіси (Перед цим потрібно запустити сервер для LinkedWay)
